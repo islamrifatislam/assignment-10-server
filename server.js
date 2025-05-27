@@ -13,7 +13,8 @@ const client = new MongoClient(uri, {
   }
 });
 const db = client.db("visadb"); 
-export const datas = db.collection('visadata');
+export const visaInfoDB = db.collection('visadata');
+export const appliedVisa = db.collection("appliedVais")
 async function run() {
   try {
     await client.db("visadetascollections").command({ ping: 1 });
