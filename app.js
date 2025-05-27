@@ -93,6 +93,28 @@ app.patch('/visa/:id', async (req, res) => {
           data: updatedData
      })
 })
+app.delete('/visa/:id', async (req, res) => {
+     const { id } = req?.params
+     const result = await visaInfoDB.findOne({ _id: new ObjectId(id) })
+     if (!result) {
+          manageResponse(res, {
+               statusCode: 404,
+               success: true,
+               message: "Visa info not found",
+               data: null,
+
+          })
+          return
+     }
+     const deletdData = await visaInfoDB.deleteOne({ _id: result._id })
+     manageResponse(res, {
+          statusCode: 200,
+          success: true,
+          message: "Visa info deleted!!",
+          data: deletdData
+     })
+})
+
 
 export default app;
 
