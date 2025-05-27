@@ -20,7 +20,15 @@ const manageResponse = (res, data) => {
           })
 }
 
-
+// stating route
+app.get("/", async (req, res) => {
+     manageResponse(res, {
+          statusCode: 200,
+          success: true,
+          message: "Server is working fine",
+          data: null
+     })
+})
 
 export default app;
 
