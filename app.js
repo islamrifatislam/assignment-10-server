@@ -67,6 +67,33 @@ pp.get('/visa/email/:email', async (req, res) => {
           data: result
      })
 })
+app.patch('/visa/:id', async (req, res) => {
+     const { id } = req?.params
+     const result = await visaInfoDB.findOne({ _id: new ObjectId(id) })
+     if (!result) {
+          manageResponse(res, {
+               statusCode: 404,
+               success: false,
+               message: "Visa_data is not found",
+               data: null
+          })
+          return
+     }
+     const updatedData = await visaInfoDB.updateOne
+          ({ _id: new ObjectId(id) }, {
+               $set: {
+                    ...req?.body
+               }
+          })
+
+     manageResponse(res, {
+          statusCode: 200,
+          success: true,
+          message: "Visa info update successful",
+          data: updatedData
+     })
+})
+
 export default app;
 
 
