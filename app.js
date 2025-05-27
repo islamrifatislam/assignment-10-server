@@ -48,6 +48,25 @@ app.get('/visa/:id', async (req, res) => {
           data: result
      })
 })
+pp.get('/visa/email/:email', async (req, res) => {
+     const { email } = req?.params
+     const result = await visaInfoDB.find({ user_email: email }).toArray()
+     if (!result) {
+          manageResponse(res, {
+               statusCode: 404,
+               success: false,
+               message: "Visa_data is not found",
+               data: null
+          })
+          return
+     }
+     manageResponse(res, {
+          statusCode: 200,
+          success: true,
+          message: "Visa info fetced successful",
+          data: result
+     })
+})
 export default app;
 
 
