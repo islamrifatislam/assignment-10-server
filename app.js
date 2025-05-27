@@ -29,7 +29,25 @@ app.get("/", async (req, res) => {
           data: null
      })
 })
-
+app.get('/visa/:id', async (req, res) => {
+     const { id } = req?.params
+     const result = await visaInfoDB.findOne({ _id: new ObjectId(id) })
+     if (!result) {
+          manageResponse(res, {
+               statusCode: 404,
+               success: false,
+               message: "Visa_data is not found",
+               data: null
+          })
+          return
+     }
+     manageResponse(res, {
+          statusCode: 200,
+          success: true,
+          message: "Visa info fetced successful",
+          data: result
+     })
+})
 export default app;
 
 
